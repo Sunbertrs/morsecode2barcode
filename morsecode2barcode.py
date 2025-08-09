@@ -6,15 +6,15 @@ codes = [".... . .-.. .-.. --- / .-- --- .-. .-.. -.. -.-.--"]
 border = 40
 height = 60
 line_width = 2
-seperate_per_line = 20
+separate_per_line = 20
 
 code_count = 0
 for line in codes:
     for character in line:
         code_count += 1
-    code_count += 15
+    code_count += separate_per_line
 
-image = Image.new("RGB", (border*2+code_count*int(code_count/15), border*2+height), "#FFF")
+image = Image.new("RGB", (border*2+code_count*int(code_count*line_width/20), border*2+height), "#FFF")
 draw = ImageDraw.Draw(image)
 
 offset = 0
@@ -36,9 +36,9 @@ for line in codes:
             draw.line([start, end], fill="#000", width=line_width)
             offset += line_width
         offset += line_width
-    offset += seperate_per_line
+    offset += separate_per_line
 
-image = image.crop((0, 0, border*2+offset-seperate_per_line, border*2+height))
+image = image.crop((0, 0, border*2+offset-separate_per_line-line_width*2, border*2+height))
 
 image.save("output.jpg")
 
